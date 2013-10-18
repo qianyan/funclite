@@ -58,6 +58,12 @@ public class CollectionOps {
         }
     }
 
+    public static <A> void addAll(Set<A> list, Iterable<A> iterable) {
+        for (A a : iterable) {
+            list.add(a);
+        }
+    }
+
     public static <A, B> List<B> flatMap(final Iterable<A> list, final Function<A, Iterable<B>> f) {
         ArrayList<B> toList = newArrayList();
         for (A a : list) {
@@ -124,6 +130,22 @@ public class CollectionOps {
     public static <A> Set<A> setOf(A... values) {
         LinkedHashSet<A> set = new LinkedHashSet<A>();
         Collections.addAll(set, values);
+        return set;
+    }
+
+    public static <A> Set<A> setOf(Iterable<A> values) {
+        LinkedHashSet<A> set = new LinkedHashSet<A>();
+        addAll(set, values);
+        return set;
+    }
+
+    public static <A> Set<A> difference(Set<A> left, Set<A> right) {
+        Set<A> set = CollectionOps.<A>setOf();
+        for (A a : left) {
+            if (!right.contains(a)) {
+                set.add(a);
+            }
+        }
         return set;
     }
 }

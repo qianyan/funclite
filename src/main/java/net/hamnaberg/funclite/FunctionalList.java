@@ -69,6 +69,10 @@ public final class FunctionalList<A> implements List<A> {
         return CollectionOps.find(this, pred);
     }
 
+    public Set<A> toSet() {
+        return CollectionOps.setOf(delegate);
+    }
+
     /** factories **/
 
     public static <B> FunctionalList<B> empty() {
@@ -84,6 +88,13 @@ public final class FunctionalList<A> implements List<A> {
             return (FunctionalList<A>) list;
         }
         return new FunctionalList<A>(list);
+    }
+
+    public static <A> FunctionalList<A> copyOf(Iterable<A> list) {
+        if (list instanceof FunctionalList) {
+            return (FunctionalList<A>) list;
+        }
+        return new FunctionalList<A>(CollectionOps.newArrayList(list));
     }
 
 
