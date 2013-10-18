@@ -63,7 +63,25 @@ public final class Predicates {
         return new Predicate<Integer>() {
             @Override
             public boolean apply(Integer input) {
-                return input != null && input.intValue() > 0;
+                return input != null && input > 0;
+            }
+        };
+    }
+
+    public static <A> com.google.common.base.Predicate<A> toGuava(final Predicate<A> f) {
+        return new com.google.common.base.Predicate<A>() {
+            @Override
+            public boolean apply(A input) {
+                return f.apply(input);
+            }
+        };
+    }
+
+    public static <A> Predicate<A> fromGuava(final com.google.common.base.Predicate<A> f) {
+        return new Predicate<A>() {
+            @Override
+            public boolean apply(A input) {
+                return f.apply(input);
             }
         };
     }

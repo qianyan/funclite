@@ -87,6 +87,14 @@ public abstract class Optional<A> implements Iterable<A> {
         return new Some<A>(Preconditions.checkNotNull(value));
     }
 
+    public com.google.common.base.Optional<A> toGuava() {
+        return com.google.common.base.Optional.fromNullable(orNull());
+    }
+
+    public static <A> Optional<A> fromGuava(com.google.common.base.Optional<A> opt) {
+        return fromNullable(opt.orNull());
+    }
+
     @SuppressWarnings("unchecked")
     public static <A> Optional<A> none() {
         return (Optional<A>) NONE;

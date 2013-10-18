@@ -46,4 +46,22 @@ public final class Functions {
             }
         };
     }
+
+    public static <A,B> com.google.common.base.Function<A, B> toGuava(final Function<A, B> f) {
+        return new com.google.common.base.Function<A, B>() {
+            @Override
+            public B apply(A input) {
+                return f.apply(input);
+            }
+        };
+    }
+
+    public static <A,B> Function<A, B> fromGuava(final com.google.common.base.Function<A, B> f) {
+        return new Function<A, B>() {
+            @Override
+            public B apply(A input) {
+                return f.apply(input);
+            }
+        };
+    }
 }
