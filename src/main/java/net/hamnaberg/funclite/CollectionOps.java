@@ -119,8 +119,8 @@ public class CollectionOps {
         return Optional.none();
     }
 
-    public static <A> Optional<A> headOption(final Collection<A> coll) {
-        return coll.isEmpty() ? Optional.<A>none() : Optional.fromNullable(coll.iterator().next());
+    public static <A> Optional<A> headOption(final Iterable<A> coll) {
+        return isEmpty(coll) ? Optional.<A>none() : Optional.fromNullable(coll.iterator().next());
     }
 
     public static <A>  boolean isEmpty(Iterable<A> iterable) {
