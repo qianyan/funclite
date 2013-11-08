@@ -24,6 +24,8 @@
   <packaging>jar</packaging>
   <name>funclite</name>
   <inceptionYear>2013</inceptionYear>
+  <description>A lightweight functional programming library</description>
+  <url>https://github.com/hamnis/funclite</url>
 
   <scm>
     <url>https://github.com/hamnis/funclite</url>
