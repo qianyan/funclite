@@ -139,6 +139,12 @@ public class CollectionOps {
         return set;
     }
 
+    public static <A> void foreach(Collection<A> list, Effect<A> effect) {
+        for (A a : list) {
+            effect.exec(a);
+        }
+    }
+
     public static <A> Set<A> difference(Set<A> left, Set<A> right) {
         Set<A> set = CollectionOps.<A>setOf();
         for (A a : left) {

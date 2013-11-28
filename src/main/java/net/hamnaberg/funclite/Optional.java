@@ -56,9 +56,9 @@ public abstract class Optional<A> implements Iterable<A> {
         }
     }
 
-    public final void foreach(Function<A, Void> f) {
+    public final void foreach(Effect<A> e) {
         if(isSome()) {
-            f.apply(get());
+            e.exec(get());
         }
     }
 
