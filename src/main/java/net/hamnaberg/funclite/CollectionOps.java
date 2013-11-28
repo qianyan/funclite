@@ -139,8 +139,8 @@ public class CollectionOps {
         return set;
     }
 
-    public static <A> void foreach(Collection<A> list, Effect<A> effect) {
-        for (A a : list) {
+    public static <A> void foreach(Iterable<A> iterable, Effect<A> effect) {
+        for (A a : iterable) {
             effect.exec(a);
         }
     }

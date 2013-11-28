@@ -57,9 +57,7 @@ public abstract class Optional<A> implements Iterable<A> {
     }
 
     public final void foreach(Effect<A> e) {
-        if(isSome()) {
-            e.exec(get());
-        }
+        CollectionOps.foreach(this, e);
     }
 
     public final Optional<A> filter(Predicate<A> input) {
