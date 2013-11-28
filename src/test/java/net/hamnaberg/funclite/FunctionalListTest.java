@@ -19,6 +19,7 @@ package net.hamnaberg.funclite;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static net.hamnaberg.funclite.Optional.*;
 import static org.junit.Assert.*;
@@ -47,6 +48,19 @@ public class FunctionalListTest {
                 return Integer.valueOf(input);
             }
         }));
+    }
+
+    @Test
+    public void foreach(){
+        final AtomicInteger sideEffectCount = new AtomicInteger(0);
+        FunctionalList<Integer> ints = FunctionalList.of(1, 2, 3);
+        ints.foreach(new Effect<Integer>() {
+            @Override
+            public void exec(Integer integer) {
+                sideEffectCount.incrementAndGet();
+            }
+        });
+        assertEquals(ints.size(), sideEffectCount.get());
     }
 
 

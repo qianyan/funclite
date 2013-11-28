@@ -18,6 +18,8 @@ package net.hamnaberg.funclite;
 
 import org.junit.Test;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import static org.junit.Assert.*;
 
 public class OptionalTest {
@@ -42,5 +44,18 @@ public class OptionalTest {
         for (String s : Optional.<String>none()) {
             fail("Iterator of none produced values");
         }
+    }
+
+    @Test
+    public void foreach(){
+        final AtomicReference<String> value = new AtomicReference<String>();
+        Optional<String> some = Optional.some("Foreach all the things!");
+        some.foreach(new Effect<String>() {
+            @Override
+            public void exec(String s) {
+                value.set(s);
+            }
+        });
+        assertEquals(some.get(), value.get());
     }
 }

@@ -57,6 +57,10 @@ public final class FunctionalList<A> implements List<A> {
         return new FunctionalList<A>(CollectionOps.filter(this, pred));
     }
 
+    public void foreach(Effect<A> effect) {
+        CollectionOps.foreach(this, effect);
+    }
+
     public boolean forall(Predicate<A> pred) {
         return CollectionOps.forall(this, pred);
     }
