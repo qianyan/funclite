@@ -92,6 +92,20 @@ public class CollectionOps {
         return Collections.unmodifiableList(copy);
     }
 
+    public static <K, V> Map<K, Collection<V>> groupBy(Iterable<V> iterable, Function<V, K> grouper) {
+        Map<K, Collection<V>> map = new LinkedHashMap<K, Collection<V>>();
+        for (V v : iterable) {
+            K key = grouper.apply(v);
+            Collection<V> value = map.get(key);
+            if (value == null) {
+                value = newArrayList();
+                map.put(key, value);
+            }
+            value.add(v);
+        }
+        return map;
+    }
+
     public static <A> boolean forall(final Iterable<A> iterable, Predicate<A> pred) {
         for (A a : iterable) {
             if (!pred.apply(a)) {

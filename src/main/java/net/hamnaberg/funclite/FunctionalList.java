@@ -77,6 +77,10 @@ public final class FunctionalList<A> implements List<A> {
         return CollectionOps.setOf(delegate);
     }
 
+    public <K> Map<K, Collection<A>> groupBy(Function<A, K> grouper) {
+        return CollectionOps.groupBy(this, grouper);
+    }
+
     /** factories **/
 
     public static <B> FunctionalList<B> empty() {
