@@ -80,6 +80,10 @@ public final class FunctionalMap<K, V> implements Map<K, V> {
         return create(MapOps.filter(delegate, p));
     }
 
+    public void foreach(Effect<Entry<K, V>> e){
+        MapOps.foreach(delegate, e);
+    }
+
     private static <K, V> boolean isDefaultOverride(V defaultValue, FunctionalMap<K, V> fMap) {
         return (fMap.defaultValue == null && defaultValue != null) || (fMap.defaultValue != null && defaultValue == null);
     }
