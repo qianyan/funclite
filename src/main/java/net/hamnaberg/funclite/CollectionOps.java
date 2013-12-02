@@ -92,6 +92,25 @@ public class CollectionOps {
         return Collections.unmodifiableList(copy);
     }
 
+    public static <V> String mkString(Iterable<V> iterable){
+        return mkString(iterable, "");
+    }
+
+    public static <V> String mkString(Iterable<V> iterable, String seperator){
+        boolean first = true;
+        StringBuilder sb = new StringBuilder();
+        for (V v : iterable) {
+            if(first) {
+                sb.append(v.toString());
+                first = false;
+            } else {
+                sb.append(seperator);
+                sb.append(v);
+            }
+        }
+        return sb.toString();
+    }
+
     public static <K, V> Map<K, Collection<V>> groupBy(Iterable<V> iterable, Function<V, K> grouper) {
         Map<K, Collection<V>> map = new LinkedHashMap<K, Collection<V>>();
         for (V v : iterable) {
