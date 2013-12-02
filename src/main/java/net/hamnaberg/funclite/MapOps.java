@@ -70,6 +70,13 @@ public final class MapOps {
         return hm;
     }
 
+    public static <K, V> void foreach(Map<K, V> input, Effect<Map.Entry<K, V>> effect){
+        Set<Map.Entry<K,V>> entries = input.entrySet();
+        for (Map.Entry<K, V> entry : entries) {
+            effect.exec(entry);
+        }
+    }
+
     public static <K, V, V2> Map<K, V2> mapValues(Map<K, V> input, Function<V, V2> f) {
         Map<K, V2> map = MapOps.newHashMap();
         Set<Map.Entry<K,V>> entries = input.entrySet();
