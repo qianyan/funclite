@@ -81,6 +81,14 @@ public final class FunctionalList<A> implements List<A> {
         return CollectionOps.groupBy(this, grouper);
     }
 
+    public String mkString(String separator){
+        return CollectionOps.mkString(this, separator);
+    }
+
+    public String mkString(){
+        return CollectionOps.mkString(this);
+    }
+
     /** factories **/
 
     public static <B> FunctionalList<B> empty() {

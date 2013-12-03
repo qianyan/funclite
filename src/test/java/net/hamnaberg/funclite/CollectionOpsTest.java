@@ -43,4 +43,10 @@ public class CollectionOpsTest {
             }
         }), is(true));
     }
+
+    @Test
+    public void mkString(){
+        Set<Integer> numbers = CollectionOps.setOf(1, 2, 3, 4, 5);
+        assertThat(CollectionOps.mkString(numbers, ":"), equalTo("1:2:3:4:5"));
+    }
 }
