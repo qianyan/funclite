@@ -77,6 +77,14 @@ public final class FunctionalList<A> implements List<A> {
         return CollectionOps.setOf(delegate);
     }
 
+    public String mkString(String start, String sep, String end) {
+        return CollectionOps.mkString(this, start, sep, end);
+    }
+
+    public String mkString(String sep) {
+        return CollectionOps.mkString(this, "[", sep, "]");
+    }
+
     public <K> Map<K, Collection<A>> groupBy(Function<A, K> grouper) {
         return CollectionOps.groupBy(this, grouper);
     }
@@ -238,6 +246,6 @@ public final class FunctionalList<A> implements List<A> {
 
     @Override
     public String toString() {
-        return delegate.toString();
+        return mkString(",");
     }
 }
