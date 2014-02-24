@@ -96,7 +96,11 @@ public class CollectionOps {
         return mkString(iterable, "");
     }
 
-    public static <V> String mkString(Iterable<V> iterable,String start, String seperator, String end){
+    public static <V> String mkString(Iterable<V> iterable, String separator){
+        return mkString(iterable, "", separator, "");
+    }
+
+    public static <V> String mkString(Iterable<V> iterable,String start, String separator, String end){
         boolean first = true;
         StringBuilder sb = new StringBuilder();
         sb.append(start);
@@ -105,15 +109,26 @@ public class CollectionOps {
                 sb.append(v.toString());
                 first = false;
             } else {
-                sb.append(seperator);
+                sb.append(separator);
                 sb.append(v);
             }
         }
         sb.append(end);
         return sb.toString();
     }
-    public static <V> String mkString(Iterable<V> iterable, String seperator){
-        return mkString(iterable, "",seperator,"");
+
+    public static Iterable<String> split(String input, String separator) {
+        final String[] split = input.split(separator);
+        return new Iterable<String>() {
+            public Iterator<String> iterator() {
+                return new StringArrayIterator(split);
+            }
+
+            @Override
+            public String toString() {
+                return mkString(this, "[", ",", "]");
+            }
+        };
     }
 
     public static <K, V> Map<K, Collection<V>> groupBy(Iterable<V> iterable, Function<V, K> grouper) {
@@ -161,18 +176,33 @@ public class CollectionOps {
         return isEmpty(coll) ? Optional.<A>none() : Optional.fromNullable(coll.iterator().next());
     }
 
+    public static <A> int size(Iterable<A> iterable) {
+        if (iterable instanceof Collection) {
+            return ((Collection)iterable).size();
+        }
+        int size = 0;
+        for (A value : iterable) {
+            size++;
+        }
+        return size;
+    }
+
     public static <A>  boolean isEmpty(Iterable<A> iterable) {
         return !iterable.iterator().hasNext();
     }
 
     public static <A> Set<A> setOf(A... values) {
-        LinkedHashSet<A> set = new LinkedHashSet<A>();
+        LinkedHashSet<A> set = newLinkedHashSet();
         Collections.addAll(set, values);
         return set;
     }
 
+    public static <A> LinkedHashSet<A> newLinkedHashSet() {
+        return new LinkedHashSet<A>();
+    }
+
     public static <A> Set<A> setOf(Iterable<A> values) {
-        LinkedHashSet<A> set = new LinkedHashSet<A>();
+        LinkedHashSet<A> set = newLinkedHashSet();
         addAll(set, values);
         return set;
     }
@@ -184,12 +214,38 @@ public class CollectionOps {
     }
 
     public static <A> Set<A> difference(Set<A> left, Set<A> right) {
-        Set<A> set = CollectionOps.<A>setOf();
+        Set<A> set = CollectionOps.newLinkedHashSet();
         for (A a : left) {
             if (!right.contains(a)) {
                 set.add(a);
             }
         }
         return set;
+    }
+
+    private static class StringArrayIterator implements Iterator<String> {
+        private final String[] array;
+        private int index = 0;
+
+        public StringArrayIterator(String[] array) {
+            this.array = array;
+        }
+
+        public boolean hasNext() {
+            return isInRange(index);
+        }
+
+        private boolean isInRange(int idx) {
+            return array.length > 0 && array.length > idx;
+        }
+
+        public String next() {
+            return array[index++].trim();
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Not allowed");
+        }
     }
 }

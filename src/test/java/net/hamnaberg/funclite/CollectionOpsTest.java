@@ -55,4 +55,10 @@ public class CollectionOpsTest {
         Set<Integer> numbers = CollectionOps.setOf(1, 2, 3, 4, 5);
         assertThat(CollectionOps.mkString(numbers, "(", ":", ")"), equalTo("(1:2:3:4:5)"));
     }
+
+    @Test
+    public void splitAndJoin(){
+        Iterable<String> numbers = CollectionOps.split("1,2,3,4,5,6,7", ",");
+        assertThat(CollectionOps.mkString(numbers, "(", ":", ")"), equalTo("(1:2:3:4:5:6:7)"));
+    }
 }
