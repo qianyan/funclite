@@ -82,7 +82,7 @@ public class CollectionOps {
         return Collections.unmodifiableList(toList);
     }
 
-    public static <A> List<A> filter(final List<A> list, final Predicate<A> f) {
+    public static <A> List<A> filter(final Iterable<A> list, final Predicate<A> f) {
         List<A> copy = newArrayList();
         for (A a : list) {
             if (f.apply(a)) {
@@ -105,13 +105,15 @@ public class CollectionOps {
         StringBuilder sb = new StringBuilder();
         sb.append(start);
         for (V v : iterable) {
-            if(first) {
-                sb.append(v.toString());
-                first = false;
-            } else {
-                sb.append(separator);
-                sb.append(v);
-            }
+            if (v != null) {
+                if(first) {
+                    sb.append(v.toString());
+                    first = false;
+                } else {
+                    sb.append(separator);
+                    sb.append(v);
+                }    
+            }            
         }
         sb.append(end);
         return sb.toString();

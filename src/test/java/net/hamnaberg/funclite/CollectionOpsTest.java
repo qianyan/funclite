@@ -19,6 +19,7 @@ package net.hamnaberg.funclite;
 import org.junit.Test;
 
 import java.util.Set;
+import java.util.List;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
@@ -48,6 +49,12 @@ public class CollectionOpsTest {
     public void mkString(){
         Set<Integer> numbers = CollectionOps.setOf(1, 2, 3, 4, 5);
         assertThat(CollectionOps.mkString(numbers, ":"), equalTo("1:2:3:4:5"));
+    }
+
+    @Test
+    public void mkStringWithNullItems(){
+        List<Integer> numbers = CollectionOps.of(1, 2, null, 4, 5);
+        assertThat(CollectionOps.mkString(numbers, ":"), equalTo("1:2:4:5"));
     }
 
     @Test
