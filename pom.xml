@@ -20,7 +20,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.hamnaberg</groupId>
   <artifactId>funclite</artifactId>
-  <version>0.3.0</version>
+  <version>0.3.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>funclite</name>
   <inceptionYear>2013</inceptionYear>
@@ -31,7 +31,7 @@
     <url>https://github.com/hamnis/funclite</url>
     <connection>scm:git:https://hamnis@github.com/hamnis/funclite.git</connection>
     <developerConnection>scm:git:git@github.com:hamnis/funclite.git</developerConnection>
-    <tag>v0.3.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
