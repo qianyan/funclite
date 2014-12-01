@@ -225,6 +225,19 @@ public class CollectionOps {
         return set;
     }
 
+    public static <A> A reduce(Iterable<A> iterable, Union<A> union, A seed) {
+        A u = seed;
+        for (A a : iterable) {
+            u = union.unite(u, a);
+        }
+
+        return u;
+    }
+
+    public static <A> A foldLeft(Iterable<A> iterable, Union<A> union, A seed) {
+        return reduce(iterable, union, seed);
+    }
+
     private static class StringArrayIterator implements Iterator<String> {
         private final String[] array;
         private int index = 0;
