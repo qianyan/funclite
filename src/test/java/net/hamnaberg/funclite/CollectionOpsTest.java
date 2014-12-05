@@ -18,11 +18,14 @@ package net.hamnaberg.funclite;
 
 import org.junit.Test;
 
-import java.util.Set;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 
 public class CollectionOpsTest {
     @Test
@@ -79,6 +82,21 @@ public class CollectionOpsTest {
     public void foldLeft() throws Exception {
         List<Integer> numbers = CollectionOps.of(1, 2, 3, 4, 5);
         assertThat(CollectionOps.foldLeft(numbers, sum(), 0), is(15));
+    }
+
+    @Test
+    public void countBy() throws Exception {
+        List<Integer> numbers = CollectionOps.of(1, 2, 1, 2, 3, 4, 5);
+        Map<String, Integer> m = new HashMap<>();
+        m.put("even", 3);
+        m.put("odd", 4);
+
+        assertThat(CollectionOps.countBy(numbers, new Function<Integer, String>() {
+            @Override
+            public String apply(Integer input) {
+                return input % 2 == 0 ? "even" : "odd";
+            }
+        }), is(m));
     }
 
     private Union<Integer> sum() {

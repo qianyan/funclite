@@ -238,6 +238,17 @@ public class CollectionOps {
         return reduce(iterable, union, seed);
     }
 
+    public static <A, B> Map<B, Integer> countBy(Iterable<A> iterable, Function<A, B> f) {
+        Map<B, Collection<A>> bCollectionMap = groupBy(iterable, f);
+        Set<B> keySet = bCollectionMap.keySet();
+        HashMap<B, Integer> map = new HashMap<>();
+        for (B key : keySet) {
+            map.put(key, bCollectionMap.get(key).size());
+        }
+
+        return map;
+    }
+
     private static class StringArrayIterator implements Iterator<String> {
         private final String[] array;
         private int index = 0;
