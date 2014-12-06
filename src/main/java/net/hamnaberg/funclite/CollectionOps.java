@@ -225,6 +225,30 @@ public class CollectionOps {
         return set;
     }
 
+    public static <A> A reduce(Iterable<A> iterable, Union<A> union, A seed) {
+        A u = seed;
+        for (A a : iterable) {
+            u = union.unite(u, a);
+        }
+
+        return u;
+    }
+
+    public static <A> A foldLeft(Iterable<A> iterable, Union<A> union, A seed) {
+        return reduce(iterable, union, seed);
+    }
+
+    public static <A, B> Map<B, Integer> countBy(Iterable<A> iterable, Function<A, B> f) {
+        Map<B, Collection<A>> bCollectionMap = groupBy(iterable, f);
+        Set<B> keySet = bCollectionMap.keySet();
+        HashMap<B, Integer> map = new HashMap<>();
+        for (B key : keySet) {
+            map.put(key, bCollectionMap.get(key).size());
+        }
+
+        return map;
+    }
+
     private static class StringArrayIterator implements Iterator<String> {
         private final String[] array;
         private int index = 0;
