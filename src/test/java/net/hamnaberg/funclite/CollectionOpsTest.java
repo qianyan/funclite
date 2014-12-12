@@ -87,7 +87,7 @@ public class CollectionOpsTest {
     @Test
     public void countBy() throws Exception {
         List<Integer> numbers = CollectionOps.of(1, 2, 1, 2, 3, 4, 5);
-        Map<String, Integer> m = new HashMap<>();
+        Map<String, Integer> m = new HashMap();
         m.put("even", 3);
         m.put("odd", 4);
 
@@ -97,6 +97,13 @@ public class CollectionOpsTest {
                 return input % 2 == 0 ? "even" : "odd";
             }
         }), is(m));
+    }
+
+    @Test
+    public void compact() throws Exception {
+        List<String> strs = CollectionOps.of(null, "1", "2", "", "3", "4", "5", null);
+        List<String> expectedStrs = CollectionOps.of("1", "2", "3", "4", "5");
+        assertThat(CollectionOps.compact(strs), is(expectedStrs));
     }
 
     private Union<Integer> sum() {

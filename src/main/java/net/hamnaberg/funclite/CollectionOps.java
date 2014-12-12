@@ -241,12 +241,24 @@ public class CollectionOps {
     public static <A, B> Map<B, Integer> countBy(Iterable<A> iterable, Function<A, B> f) {
         Map<B, Collection<A>> bCollectionMap = groupBy(iterable, f);
         Set<B> keySet = bCollectionMap.keySet();
-        HashMap<B, Integer> map = new HashMap<>();
+        HashMap<B, Integer> map = new HashMap();
         for (B key : keySet) {
             map.put(key, bCollectionMap.get(key).size());
         }
 
         return map;
+    }
+
+    public static <A> List<A> compact(List<A> args) {
+        return filter(args, new Predicate<A>() {
+            @Override
+            public boolean apply(A arg) {
+                if(arg instanceof String) {
+                    return !arg.equals("");
+                }
+                return arg != null;
+            }
+        });
     }
 
     private static class StringArrayIterator implements Iterator<String> {
