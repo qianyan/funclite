@@ -261,6 +261,18 @@ public class CollectionOps {
         });
     }
 
+    public static <A extends Comparable<A>> List<A> sortBy(List<A> args, final Function<A, A> func) {
+        A[] copyOfArgs = (A[]) args.toArray();
+        Arrays.sort(copyOfArgs, new Comparator<A>() {
+            @Override
+            public int compare(A pre, A next) {
+                return func.apply(pre).compareTo(func.apply(next));
+            }
+        });
+
+        return of(copyOfArgs);
+    }
+
     private static class StringArrayIterator implements Iterator<String> {
         private final String[] array;
         private int index = 0;

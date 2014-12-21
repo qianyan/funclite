@@ -103,7 +103,21 @@ public class CollectionOpsTest {
     public void compact() throws Exception {
         List<String> strs = CollectionOps.of(null, "1", "2", "", "3", "4", "5", null);
         List<String> expectedStrs = CollectionOps.of("1", "2", "3", "4", "5");
+
         assertThat(CollectionOps.compact(strs), is(expectedStrs));
+    }
+
+    @Test
+    public void sortBy() throws Exception {
+        List<Double> numbers = CollectionOps.of(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
+        List<Double> expectedNumbers = CollectionOps.of(5.0, 4.0, 6.0, 3.0, 1.0, 2.0);
+
+        assertThat(CollectionOps.sortBy(numbers, new Function<Double, Double>() {
+            @Override
+            public Double apply(Double arg) {
+                return Math.sin(arg);
+            }
+        }), is(expectedNumbers));
     }
 
     private Union<Integer> sum() {
